@@ -1,0 +1,31 @@
+<!DOCTYPE html >
+<html>
+  <head>
+  
+    
+  </head>
+</html>
+
+<body>
+<button id="btn">Get Quote</button>
+<ul id="list"></ul>
+  <script>var btn = document.getElementById("btn");
+var ul = document.getElementById("list");
+btn.addEventListener("click", function() {
+  var ajaxCall = new XMLHttpRequest();
+  ajaxCall.onreadystatechange = function() {
+    if (this.readyState === 4) var res = JSON.parse(this.responseText);
+    res.forEach(function(e) {
+      var li = document.createElement("li");
+
+      li.innerText = e.quote;
+
+      ul.append(li);
+    });
+  };
+
+  ajaxCall.open("get", "https://talaikis.com/api/quotes");
+  ajaxCall.send();
+});
+</script>
+</body>
